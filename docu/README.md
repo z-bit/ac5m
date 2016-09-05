@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<p>[myDocu](./myDocu)
+[myDocu](./DOCU.md)
 ___
 
 
