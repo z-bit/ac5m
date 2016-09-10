@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AppState } from '../app.service';
-import { Title } from './title';
+import { AppState } from '../../app.service';
+import { Title } from './title/title.service';
 
 @Component({
   // The selector is what angular internally uses

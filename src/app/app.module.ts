@@ -3,24 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MdModule } from './md.module';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
-/*
- * Platform and Environment providers/directives/pipes
- */
+// Platform and Environment providers/directives/pipes
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
+import { APP_RESOLVER_PROVIDERS } from './app.resolver';
+
 // App is our top level component
 import { App } from './app.component';
-import { MdModule } from './md.module';
-import { APP_RESOLVER_PROVIDERS } from './app.resolver';
+import { RootComponent } from './app.root.component';
+import { Wrong } from './app.wrong.component';
 import { AppState } from './app.service';
-import { Home } from './home';
-import { About } from './about';
-import { NoContent } from './no-content';
 
-// Import diretives
-import { XLarge } from './home/x-large';
+// Import own modules:
+import { DemoModule } from './demo/demo.module';
+import { Module1Module } from './module1/module1.module';
+
+
+// Import directives
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -35,17 +37,18 @@ const APP_PROVIDERS = [
   bootstrap: [ App ],
   declarations: [
     App,
-    About,
-    Home,
-    NoContent,
-    XLarge
+    RootComponent,
+    Wrong
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
-    MdModule.forRoot()
+    MdModule.forRoot(),
+
+      DemoModule,
+      Module1Module
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
@@ -66,13 +69,13 @@ export class AppModule {
     // recreate elements
     var state = this.appState._state;
     store.state = state;
-    store.disposeOldHosts = createNewHosts(cmpLocation)
+    store.disposeOldHosts = createNewHosts(cmpLocation);
     // remove styles
     removeNgStyles();
   }
   hmrAfterDestroy(store) {
     // display new elements
-    store.disposeOldHosts()
+    store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
 }
